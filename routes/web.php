@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,9 +14,12 @@ Route::get('/posts', function () {
     return view('posts', ['title' => 'Blog', 'posts' => $posts]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    $post = Post::find($slug);
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+Route::get('/posts/{postss:slug}', function (Post $postss) {
+    return view('post', ['title' => 'Single Post', 'post' => $postss]);
+});
+
+Route::get('/author/{user}', function (User $user) {
+    return view('posts', ['title' => 'Artikel By ' . $user->name, 'posts' => $user->posts]);
 });
 
 Route::get('/about', function () {
