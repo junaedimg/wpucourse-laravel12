@@ -17,8 +17,19 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('slug');
             // $table->string('author_id');
-            $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('category_id');
+            // $table->unsignedBigInteger('author_id');
+            // $table->foreign('author_id')->references('id')->on('users');
+            $table->foreignId('author_id')->constrained(
+                table: 'users',
+                indexName: 'posts_author_id',
+            );
+
+            $table->foreignId('category_id')->constrained(
+                table: 'categories',
+                indexName: 'posts_category_id',
+            );
+            // $table->foreign('category_id')->references('id')->on('categories');
             $table->text('body');
             $table->timestamps();
         });
