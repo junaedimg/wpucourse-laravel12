@@ -24,7 +24,7 @@ class PostFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'body' => fake()->text(),
+            'body' => fake()->text(2000),
             'author_id' => User::factory(),
             'category_id' => Category::factory(),
             'tanggal' => fake()->date()
