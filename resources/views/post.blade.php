@@ -28,10 +28,10 @@ URL: https://flowbite.com/docs/components/typography/
                                 src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
                                 alt="{{ $post->author->username }}">
                             <div>
-                                <a href="/author/{{ $post->author->username }}" rel="author"
+                                <a href="/posts?author={{ $post->author->username }}" rel="author"
                                     class="text-xl font-bold text-gray-900 dark:text-white">{{ $post->author->username }}</a>
                                 <p class="text-base text-gray-500 dark:text-gray-400">
-                                    <a href="/category/{{ $post->category->slug }}"">
+                                    <a href="/posts?category={{ $post->category->slug }}">
                                         <span
                                             class="{{ $post->category->color }} text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                                             {{ $post->category->name }}
