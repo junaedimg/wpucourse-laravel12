@@ -44,8 +44,11 @@
                     class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
         </form>
-        <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
-            @foreach ($posts as $post)
+
+        {{ $posts->links() }}
+
+        <div class="mt-4 grid gap-8 lg:grid-cols-3 md:grid-cols-2">
+            @forelse ($posts as $post)
                 <article
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-600 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
@@ -63,14 +66,14 @@
                             {{ $post->title }}
                         </a>
                     </h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-                        {{ Str::limit($post['body'], 100) }}
-                    </p>
+                    <div class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                        {!! Str::limit($post['body'], 100) !!}
+                    </div>
                     <div class="flex justify-between items-center">
                         <a href="/posts/?author={{ $post->author->username }}">
                             <div class="flex items-center space-x-4">
                                 <img class="w-7 h-7 rounded-full"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                    src="{{ $post->author->avatar ? asset('storage/' . $post->author->avatar) : asset('img/avatar.png') }}"
                                     alt="{{ $post->author->name }}" />
                                 <span class="font-medium text-xs dark:text-white">
                                     {{ $post->author->name }}
@@ -89,7 +92,14 @@
                         </a>
                     </div>
                 </article>
-            @endforeach
+            @empty
+                <div>
+                    <p class="font-semibold text-xl my-4">Article no found!</p>
+                    <a href="/posts" class="block text-blue-500 hover:underline"> &laquo; Back to all posts.</a>
+                </div>
+            @endforelse
+
         </div>
     </div>
+
 </x-layout>
